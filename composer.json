@@ -1,0 +1,24 @@
+{
+    "name": " zf2-boiler-app/app-user",
+    "type": "library",
+    "description": "ZF2 BoilerApp Display module",
+    "keywords": ["Zend Framework 2","ZF2 Boiler-App","user","account"],
+    "authors": [
+        {
+            "name": "Neilime",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability" : "dev",    
+    "require": {
+        "php": ">=5.3.3",
+        
+        "zendframework/zendframework": "dev-master",
+    },
+    "autoload": {
+        "psr-0": {
+            "BoilerAppUser": "src"
+        },
+        "classmap" : ["Module.php"]
+    }
+}
