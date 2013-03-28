@@ -1,5 +1,5 @@
 <?php
-namespace User\Form;
+namespace BoilerAppUser\Form;
 class ChangeEmailForm extends \Application\Form\AbstractForm{
 
 	/**

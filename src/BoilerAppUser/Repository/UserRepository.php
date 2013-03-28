@@ -1,5 +1,5 @@
 <?php
-namespace User\Repository;
+namespace BoilerAppUser\Repository;
 class UserRepository extends \Database\Repository\AbstractEntityRepository{
 
 	/**

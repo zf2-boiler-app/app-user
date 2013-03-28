@@ -1,5 +1,5 @@
 <?php
-namespace User\Mvc\Controller\Plugin;
+namespace BoilerAppUser\Mvc\Controller\Plugin;
 class UserMustBeLoggedInPlugin extends \Zend\Mvc\Controller\Plugin\AbstractPlugin{
     public function __invoke($sRedirectUrl = null){
     	/* @var $oController \Zend\Mvc\Controller\AbstractActionController */

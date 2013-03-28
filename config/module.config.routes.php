@@ -6,7 +6,7 @@ return array(
 			'options' => array(
 				'route' => '/user',
 				'defaults' => array(
-					'controller' => 'User\Controller\User',
+					'controller' => 'BoilerAppUser\Controller\User',
 					'action' => 'index'
 				)
 			),
@@ -17,7 +17,7 @@ return array(
 					'options' => array(
 						'route' => '/account',
 						'defaults' => array(
-							'controller' => 'User\Controller\UserAccount',
+							'controller' => 'BoilerAppUser\Controller\UserAccount',
 							'action' => 'account'
 						)
 					)
@@ -27,7 +27,7 @@ return array(
 					'options' => array(
 						'route' => '/delete-account',
 						'defaults' => array(
-							'controller' => 'User\Controller\UserAccount',
+							'controller' => 'BoilerAppUser\Controller\UserAccount',
 							'action' => 'deleteaccount'
 						)
 					)
@@ -37,7 +37,7 @@ return array(
 					'options' => array(
 						'route' => '/change-password',
 						'defaults' => array(
-							'controller' => 'User\Controller\UserAccount',
+							'controller' => 'BoilerAppUser\Controller\UserAccount',
 							'action' => 'changepassword'
 						)
 					)
@@ -47,7 +47,7 @@ return array(
 					'options' => array(
 						'route' => '/change-email',
 						'defaults' => array(
-							'controller' => 'User\Controller\UserAccount',
+							'controller' => 'BoilerAppUser\Controller\UserAccount',
 							'action' => 'changeemail'
 						)
 					)
@@ -57,7 +57,7 @@ return array(
 					'options' => array(
 						'route' => '/change-avatar',
 						'defaults' => array(
-							'controller' => 'User\Controller\UserAccount',
+							'controller' => 'BoilerAppUser\Controller\UserAccount',
 							'action' => 'changeavatar'
 						)
 					)

@@ -1,5 +1,5 @@
 <?php
-namespace User\Controller;
+namespace BoilerAppUser\Controller;
 class UserAccountController extends \Templating\Mvc\Controller\AbstractActionController{
 
 	public function accountAction(){

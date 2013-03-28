@@ -1,5 +1,5 @@
 <?php
-namespace User\Service;
+namespace BoilerAppUser\Service;
 class UserService implements \Zend\ServiceManager\ServiceLocatorAwareInterface{
 	use \Zend\ServiceManager\ServiceLocatorAwareTrait;
 

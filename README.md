@@ -9,7 +9,7 @@ If you want to contribute don't hesitate, I'll review any PR.
 Introduction
 ------------
 
-__BoilerApp User module__ is a Zend Framework 2 module
+__ZF2 BoilerApp User module__ is a Zend Framework 2 module
 
 Requirements
 ------------
@@ -43,13 +43,17 @@ Installation
 
 #### Post installation
 
-1. Enabling it in your `application.config.php` file.
+1. Enabling BoilerAppUser, BoilerAppDb and Doctrine modules in your `application.config.php` file.
 
     ```php
     return array(
         'modules' => array(
             // ...
             'BoilerAppUser',
+            'BoilerAppDb',
+            'DoctrineModule',
+    		'DoctrineORMModule',
+    		// ...
         ),
         // ...
     );

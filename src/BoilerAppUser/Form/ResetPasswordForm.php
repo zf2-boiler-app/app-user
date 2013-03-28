@@ -1,5 +1,5 @@
 <?php
-namespace User\Form;
+namespace BoilerAppUser\Form;
 class ResetPasswordForm extends \Application\Form\AbstractForm{
 	/**
 	 * Constructor

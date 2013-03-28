@@ -1,5 +1,5 @@
 <?php
-namespace User\View\Helper;
+namespace BoilerAppUser\View\Helper;
 class UserAvatarHelper extends \Zend\View\Helper\AbstractHelper{
 	/**
 	 * @var string

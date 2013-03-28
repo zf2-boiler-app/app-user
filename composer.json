@@ -1,7 +1,7 @@
 {
-    "name": " zf2-boiler-app/app-user",
+    "name": "zf2-boiler-app/app-user",
     "type": "library",
-    "description": "ZF2 BoilerApp Display module",
+    "description": "ZF2 BoilerApp User module",
     "keywords": ["Zend Framework 2","ZF2 Boiler-App","user","account"],
     "authors": [
         {
@@ -12,8 +12,8 @@
     "minimum-stability" : "dev",    
     "require": {
         "php": ">=5.3.3",
-        
         "zendframework/zendframework": "dev-master",
+        "zf2-boiler-app/app-db": "dev-master"
     },
     "autoload": {
         "psr-0": {

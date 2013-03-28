@@ -3,7 +3,7 @@ return array(
 	'router' => include 'module.config.routes.php',
 	'asset_bundle' => include 'module.config.assets.php',
 	'paths' => array(
-    	'avatarsPath' => getcwd().'/data/avatars'
+    	'avatarsPath' => __DIR__.'/../data/avatars'
     ),
 	'controllers' => array(
         'invokables' => array(
@@ -56,28 +56,23 @@ return array(
     ),
 	'service_manager' => array(
 		'factories' => array(
-			'UserService' => '\User\Factory\UserServiceFactory',
-			'UserAccountService' => '\User\Factory\UserAccountServiceFactory',
-			'UserModel' => '\User\Factory\UserModelFactory',
-			'UserProviderModel' => '\User\Factory\UserProviderModelFactory',
-			'ChangeAvatarForm' => '\User\Factory\ChangeAvatarFormFactory',
-			'ChangeEmailForm' => '\User\Factory\ChangeEmailFormFactory',
-			'ChangePasswordForm' => '\User\Factory\ChangePasswordFormFactory',
+			'UserService' => 'BoilerAppUser\Factory\UserServiceFactory',
+			'UserAccountService' => 'BoilerAppUser\Factory\UserAccountServiceFactory',
+			'UserModel' => 'BoilerAppUser\Factory\UserModelFactory',
+			'UserProviderModel' => 'BoilerAppUser\Factory\UserProviderModelFactory',
+			'ChangeAvatarForm' => 'BoilerAppUser\Factory\ChangeAvatarFormFactory',
+			'ChangeEmailForm' => 'BoilerAppUser\Factory\ChangeEmailFormFactory',
+			'ChangePasswordForm' => 'BoilerAppUser\Factory\ChangePasswordFormFactory',
 		)
 	),
 	'controller_plugins' => array(
        	'invokables' => array(
-        	'userMustBeLoggedIn' => 'User\Mvc\Controller\Plugin\UserMustBeLoggedInPlugin',
+        	'userMustBeLoggedIn' => 'BoilerAppUser\Mvc\Controller\Plugin\UserMustBeLoggedInPlugin',
        	)
     ),
 	'view_helpers' => array(
 		'factories' => array(
-			'userAvatar' => function(\Zend\ServiceManager\ServiceManager $oServiceManager){
-				$aConfiguration = $oServiceManager->getServiceLocator()->get('Config');
-				if(!isset($aConfiguration['paths']['avatarsPath']))throw new \LogicException('Avatars path configuration is undefined');
-				$oUserAvavatarHelper = new \User\View\Helper\UserAvatarHelper();
-				return $oUserAvavatarHelper->setAvatarsPath($aConfiguration['paths']['avatarsPath']);
-			}
+			'userAvatar' => 'BoilerAppUser\Factory\UserAvatarHelperFactory'
 		)
 	)
 );

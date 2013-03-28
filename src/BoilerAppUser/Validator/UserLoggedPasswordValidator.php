@@ -1,5 +1,5 @@
 <?php
-namespace User\Validator;
+namespace BoilerAppUser\Validator;
 class UserLoggedPasswordValidator extends \Zend\Validator\AbstractValidator{
     const WRONG_PASSWORD  = 'wrongPassword';
 

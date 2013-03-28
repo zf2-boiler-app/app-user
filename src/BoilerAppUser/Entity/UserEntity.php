@@ -1,5 +1,5 @@
 <?php
-namespace User\Entity;
+namespace BoilerAppUser\Entity;
 /**
  * @\Doctrine\ORM\Mapping\Entity(repositoryClass="\User\Repository\UserRepository")
  * @\Doctrine\ORM\Mapping\Table(name="users")

@@ -1,8 +1,8 @@
 <?php
-namespace User\Factory;
+namespace BoilerAppUser\Factory;
 class UserServiceFactory implements \Zend\ServiceManager\FactoryInterface{
 	public function createService(\Zend\ServiceManager\ServiceLocatorInterface $oServiceLocator){
-		$oUserService = new \User\Service\UserService();
+		$oUserService = new \BoilerAppUser\Service\UserService();
 		return $oUserService->setServiceLocator($oServiceLocator);
     }
 }
