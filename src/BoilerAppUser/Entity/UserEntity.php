@@ -1,10 +1,10 @@
 <?php
 namespace BoilerAppUser\Entity;
 /**
- * @\Doctrine\ORM\Mapping\Entity(repositoryClass="\User\Repository\UserRepository")
+ * @\Doctrine\ORM\Mapping\Entity(repositoryClass="\BoilerAppUser\Repository\UserRepository")
  * @\Doctrine\ORM\Mapping\Table(name="users")
  */
-class UserEntity extends \Database\Entity\AbstractEntity{
+class UserEntity extends \BoilerAppDb\Entity\AbstractEntity{
 
 	/**
 	 * @var int
