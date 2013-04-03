@@ -21,8 +21,8 @@ class UserEntity extends \BoilerAppDb\Entity\AbstractEntity{
 	protected $user_display_name;
 
 	/**
-	 * @var \AccessControl\Entity\AuthAccessEntity
-     * @\Doctrine\ORM\Mapping\OneToOne(targetEntity="AccessControl\Entity\AuthAccessEntity", mappedBy="auth_access_user")
+	 * @var \BoilerAppAccessControl\Entity\AuthAccessEntity
+     * @\Doctrine\ORM\Mapping\OneToOne(targetEntity="BoilerAppAccessControl\Entity\AuthAccessEntity", mappedBy="auth_access_user")
 	 */
 	protected $user_auth_access;
 
@@ -35,7 +35,7 @@ class UserEntity extends \BoilerAppDb\Entity\AbstractEntity{
 
 	/**
 	 * @param string $sDisplayName
-	 * @return \User\Entity\UserEntity
+	 * @return \BoilerAppUser\Entity\UserEntity
 	 */
 	public function setUserDisplayName($sDisplayName){
 		$this->user_display_name = $sDisplayName;
@@ -50,16 +50,16 @@ class UserEntity extends \BoilerAppDb\Entity\AbstractEntity{
 	}
 
 	/**
-	 * @param \AccessControl\Entity\AuthAccessEntity $oUserAuthAccess
-	 * @return \User\Entity\UserEntity
+	 * @param \BoilerAppAccessControl\Entity\AuthAccessEntity $oUserAuthAccess
+	 * @return \BoilerAppUser\Entity\UserEntity
 	 */
-	public function setUserAuthAccess(\AccessControl\Entity\AuthAccessEntity $oUserAuthAccess){
+	public function setUserAuthAccess(\BoilerAppAccessControl\Entity\AuthAccessEntity $oUserAuthAccess){
 		$this->user_auth_access = $oUserAuthAccess;
 		return $this;
 	}
 
 	/**
-	 * @return \AccessControl\Entity\AuthAccessEntity
+	 * @return \BoilerAppAccessControl\Entity\AuthAccessEntity
 	 */
 	public function getUserAuthAccess(){
 		return $this->user_auth_access;
