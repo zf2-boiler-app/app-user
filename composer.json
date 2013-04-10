@@ -13,7 +13,8 @@
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "dev-master",
-        "zf2-boiler-app/app-db": "dev-master"
+        "zf2-boiler-app/app-db": "dev-master",
+        "zf2-boiler-app/app-access-control": "dev-master"
     },
     "autoload": {
         "psr-0": {
