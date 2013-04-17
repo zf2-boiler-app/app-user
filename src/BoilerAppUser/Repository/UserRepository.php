@@ -1,6 +1,6 @@
 <?php
 namespace BoilerAppUser\Repository;
-class UserRepository extends \Database\Repository\AbstractEntityRepository{
+class UserRepository extends \BoilerAppDb\Repository\AbstractEntityRepository{
 
 	/**
 	 * Check if display name is available for use

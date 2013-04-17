@@ -52,7 +52,7 @@ class UserService implements \Zend\ServiceManager\ServiceLocatorAwareInterface{
 			$this->getServiceLocator()->get('translator')->translate('The display name "%value%" is the same as currently used','validator')
 		);
 
-		return $this->getServiceLocator()->get('User\Repository\UserRepository')->isUserDisplayNameAvailable($sUserDisplayName)?true:str_ireplace(
+		return $this->getServiceLocator()->get('BoilerAppUser\Repository\UserRepository')->isUserDisplayNameAvailable($sUserDisplayName)?true:str_ireplace(
 			'%value%',$sUserDisplayName,
 			$this->getServiceLocator()->get('translator')->translate('The display name "%value%" is unavailable','validator')
 		);
