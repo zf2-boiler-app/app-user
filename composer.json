@@ -51,7 +51,7 @@
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "dev-master",
-        "zf2-boiler-app/app-access-control": "dev-master",
+        "zf2-boiler-app/app-access-control": "dev-master"
     },
     "require-dev":{
     	"zf2-boiler-app/app-test": "dev-master",
