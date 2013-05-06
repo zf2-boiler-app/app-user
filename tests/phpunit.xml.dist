@@ -5,7 +5,6 @@
          backupGlobals="false"
          backupStaticAttributes="false"
          stopOnFailure="false">
-
     <testsuites>
         <testsuite name="BoilerAppUser">
             <directory suffix=".php">./BoilerAppUserTest/</directory>
@@ -16,4 +15,7 @@
             <directory suffix=".php">../src/</directory>
         </whitelist>
     </filter>
+    <logging>
+		<log type="coverage-clover" target="./clover.xml"/>
+	</logging>
 </phpunit>

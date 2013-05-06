@@ -4,11 +4,7 @@ return array(
 		'User' => array(
 			'type' => 'Zend\Mvc\Router\Http\Literal',
 			'options' => array(
-				'route' => '/user',
-				'defaults' => array(
-					'controller' => 'BoilerAppUser\Controller\User',
-					'action' => 'index'
-				)
+				'route' => '/user'
 			),
 			'may_terminate' => true,
 			'child_routes' => array(
