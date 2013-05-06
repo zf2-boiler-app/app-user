@@ -41,8 +41,8 @@ return array(
 			)
 		)
 	),
-	'messenger' => array(
-		'view_manager' => array(
+	'medias' => array(
+		\BoilerAppMessenger\Media\Mail\MailMessageRenderer::MEDIA => array(
 			'template_map' => array(
 				'email/user/confirm-email' => __DIR__ . '/../view/user/email/confirm-email.phtml',
 				'email/user/confirm-reset-password' => __DIR__ . '/../view/user/email/confirm-reset-password.phtml',
