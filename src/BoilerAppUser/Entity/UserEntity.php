@@ -4,7 +4,7 @@ namespace BoilerAppUser\Entity;
  * @\Doctrine\ORM\Mapping\Entity(repositoryClass="\BoilerAppUser\Repository\UserRepository")
  * @\Doctrine\ORM\Mapping\Table(name="users")
  */
-class UserEntity extends \BoilerAppDb\Entity\AbstractEntity{
+class UserEntity extends \BoilerAppDb\Entity\AbstractEntity implements \BoilerAppMessenger\Media\Mail\MailMessageUserInterface{
 
 	/**
 	 * @var int
@@ -63,5 +63,12 @@ class UserEntity extends \BoilerAppDb\Entity\AbstractEntity{
 	 */
 	public function getUserAuthAccess(){
 		return $this->user_auth_access;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getUserEmail(){
+		return $this->getUserAuthAccess()->getAuthAccessEmailIdentity();
 	}
 }
