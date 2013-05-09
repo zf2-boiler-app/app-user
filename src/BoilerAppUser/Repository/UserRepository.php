@@ -15,5 +15,4 @@ class UserRepository extends \BoilerAppDb\Repository\AbstractEntityRepository{
 		));
 		return !$this->findOneBy(array('user_display_name' => $sUserDisplayName));
 	}
-
 }

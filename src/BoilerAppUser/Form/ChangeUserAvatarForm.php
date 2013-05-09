@@ -1,6 +1,6 @@
 <?php
 namespace BoilerAppUser\Form;
-class ChangeAvatarForm extends \Application\Form\AbstractForm{
+class ChangeUserAvatarForm extends \BoilerAppDisplay\Form\AbstractForm{
 
 	/**
 	 * Constructor
@@ -9,11 +9,8 @@ class ChangeAvatarForm extends \Application\Form\AbstractForm{
 	 * @throws \Exception
 	 */
 	public function __construct($sName = null,$aOptions = null){
-		parent::__construct('change_avatar',$aOptions);
-
-		$oInputFilter = new \Zend\InputFilter\InputFilter();
-		$this->setAttribute('method', 'post')
-		->add(array(
+		parent::__construct($sName,$aOptions);
+		$this->add(array(
 			'name' => 'user_new_avatar',
 			'type' => 'Zend\Form\Element\File',
 			'attributes' => array(
@@ -33,10 +30,6 @@ class ChangeAvatarForm extends \Application\Form\AbstractForm{
 				'class' => 'btn-large btn-primary'
 			),
 			'options' => array('twb'=>array('formAction' => true))
-		))
-		->setInputFilter($oInputFilter->add(array(
-			'name' => 'user_new_avatar',
-			'required' => true
-		)));
+		));
 	}
 }

@@ -1,6 +1,6 @@
 <?php
 namespace BoilerAppUser\Controller;
-class UserAccountController extends \Templating\Mvc\Controller\AbstractActionController{
+class UserAccountController extends \BoilerAppDisplay\Mvc\Controller\AbstractActionController{
 
 	public function accountAction(){
 		//Check user is logged in

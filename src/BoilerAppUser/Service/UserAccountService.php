@@ -5,7 +5,7 @@ class UserAccountService implements \Zend\ServiceManager\ServiceLocatorAwareInte
 
 	/**
 	 * Delete current logged user
-	 * @return \User\Service\UserAccountService
+	 * @return \BoilerAppUser\Service\UserAccountService
 	 */
 	public function deleteLoggedUser(){
 		//Log out and Delete user
@@ -14,139 +14,54 @@ class UserAccountService implements \Zend\ServiceManager\ServiceLocatorAwareInte
 	}
 
 	/**
-	 * @param string $sAvatar
-	 * @throws \Exception
-	 * @return \User\Service\UserAccountService
+	 * Create new avatar image for logged user
+	 * @param string $sUserAvatarFilePath
+	 * @throws \InvalidArgumentException
+	 * @throws \RuntimeException
+	 * @throws \DomainException
+	 * @throws \LogicException
+	 * @return \BoilerAppUser\Service\UserAccountService
 	 */
-	public function changeUserLoggedAvatar(array $aAvatarFileInfos){
-		if(empty($aAvatarFileInfos['tmp_name']) || !is_readable($aAvatarFileInfos['tmp_name']))throw new \Exception('Avatar file not found : '.$aAvatarFileInfos['tmp_name']);
+	public function changeUserLoggedAvatar($sUserAvatarFilePath){
+		if(!is_string($sUserAvatarFilePath))throw new \InvalidArgumentException('User avatar path expects string, "'.gettype($sUserAvatarFilePath).'" given');
+		if(!is_readable($sUserAvatarFilePath))throw new \InvalidArgumentException('User avatar path "'.$sUserAvatarFilePath.'" is not a readable file path');
 
-		$aImagesInfos = getimagesize($aAvatarFileInfos['tmp_name']);
-		if(empty($aImagesInfos[2]))throw new \Exception('File type not found for avatar : '.$aAvatarFileInfos['tmp_name']);
+		if(!($aImagesInfos = getimagesize($sUserAvatarFilePath)) || empty($aImagesInfos[2]))\RuntimeException('An error occurred while retrieving user avatar "'.$sUserAvatarFilePath.'" infos');
 		switch($aImagesInfos[2]){
 			case IMAGETYPE_JPEG:
-				$oImage = imagecreatefromjpeg($aAvatarFileInfos['tmp_name']);
+				if(!$oImage = imagecreatefromjpeg($sUserAvatarFilePath))throw new \RuntimeException('An error occurred during creating image from "jpeg" user avatar "'.$sUserAvatarFilePath.'"');
 				break;
 			case IMAGETYPE_GIF:
-				$oImage = imagecreatefromgif($aAvatarFileInfos['tmp_name']);
+				if(!$oImage = imagecreatefromgif($sUserAvatarFilePath))throw new \RuntimeException('An error occurred during creating image from "gif" user avatar "'.$sUserAvatarFilePath.'"');
 				break;
 			case IMAGETYPE_PNG:
-				$oImage = imagecreatefrompng($aAvatarFileInfos['tmp_name']);
+				if(!$oImage = imagecreatefrompng($sUserAvatarFilePath))throw new \RuntimeException('An error occurred during creating image from "png" user avatar "'.$sUserAvatarFilePath.'"');
 				break;
 			default:
-				throw new \Exception('File type not supported for avatar : '.$aImagesInfos[2]);
+				throw new \DomainException('File type "'.$aImagesInfos[2].'" is not supported for avatar');
 		}
+
 		//Crop image
-		$oNewImage = imagecreatetruecolor(128,128);
-		imagecopyresampled($oNewImage, $oImage, 0, 0, 0, 0, 128, 128, imagesx($oImage), imagesy($oImage));
+		if(!$oNewImage = imagecreatetruecolor(128,128))throw new \RuntimeException('An error occurred during creating new image for croping user avatar');
+
+		if(!imagecopyresampled($oNewImage, $oImage, 0, 0, 0, 0, 128, 128, imagesx($oImage), imagesy($oImage)))throw new \RuntimeException('An error occurred during croping user avatar');
 
 		$aConfiguration = $this->getServiceLocator()->get('Config');
-		if(empty($aConfiguration['paths']['avatarsPath'])
-		|| !is_dir($aConfiguration['paths']['avatarsPath']))throw new \Exception('Avatars path is not a valid directory path : '.$aConfiguration['paths']['avatarsPath']);
+
+		if(empty($aConfiguration['paths']['avatarsPath']))throw new \LogicException('Avatars directory path is undefined');
+		if(!is_string($aConfiguration['paths']['avatarsPath']))throw new \LogicException('Avatars directory path expects string, "'.gettype($aConfiguration['paths']['avatarsPath']).'" given');
+		if(!is_dir($aConfiguration['paths']['avatarsPath']))throw new \LogicException('Avatars directory path expects string, "'.$aConfiguration['paths']['avatarsPath'].'" is not a valid directory');
 
 		//Save avatar
 		if(!imagepng(
 			$oNewImage,
 			$aConfiguration['paths']['avatarsPath'].DIRECTORY_SEPARATOR.$this->getServiceLocator()->get('AccessControlService')->getLoggedUser()->getUserId().'-avatar.png'
-		))throw new \Exception('An error occurred when saving user avatar');
+		))throw new \RuntimeException('An error occurred during saving user avatar');
 		return $this;
 	}
 
-	/**
-	 * @param string $sPassword
-	 * @throws \Exception
-	 * @return \User\Service\UserAccountService
-	 */
-	public function changeUserLoggedPassword($sPassword){
-		if(empty($sPassword) || !is_string($sPassword))throw new \Exception('Password ('.gettype($sPassword).') is not a string or is empty');
-		$oUserModel = $this->getServiceLocator()->get('UserModel');
-
-		$oUser = $this->getServiceLocator()->get('AccessControlService')->getLoggedUser();
-
-		//Reset password
-		$oUserModel->changeUserPassword($oUser,md5($sPassword));
-
-		//Create email view body
-		$oView = new \Zend\View\Model\ViewModel(array(
-			'user_email' => $oUser->getUserEmail(),
-			'user_password' => $sPassword
-		));
-
-		//Retrieve translator
-		$oTranslator = $this->getServiceLocator()->get('translator');
-
-		//Retrieve Messenger service
-		$oMessengerService = $this->getServiceLocator()->get('MessengerService');
-
-		//Render view & send email to user
-		$oMessengerService->renderView($oView->setTemplate('email/user/password-changed'),function($sHtml)use($oMessengerService,$oTranslator,$oUser){
-			$oMessage = new \Messenger\Message();
-			$oMessengerService->sendMessage(
-				$oMessage->setFrom(\Messenger\Message::SYSTEM_USER)
-				->setTo($oUser)
-				->setSubject($oTranslator->translate('change_password'))
-				->setBody($sHtml),
-				\Messenger\Service\MessengerService::MEDIA_EMAIL
-			);
-		});
-		return $this;
-	}
-
-	/**
-	 * @param string $sPassword
-	 * @return boolean
-	 */
-	public function checkUserLoggedPassword($sPassword){
-		return $this->getServiceLocator()->get('UserModel')->checkUserPassword(
-			$this->getServiceLocator()->get('UserService')->getLoggedUser(),
-			md5($sPassword)
-		);
-	}
-
-	/**
-	 * @param string $sEmail
-	 * @throws \Exception
-	 * @return \User\Service\UserAccountService
-	 */
-	public function changeUserLoggedEmail($sEmail){
-		if(empty($sEmail) || !is_string($sEmail))throw new \Exception('Email is ('.gettype($sEmail).') is not a string or is empty');
-		$oUserModel = $this->getServiceLocator()->get('UserModel');
-
-		$oUser = $this->getServiceLocator()->get('UserService')->getLoggedUser();
-
-		//Reset password
-		$oUserModel->changeUserEmail($oUser,$sEmail);
-
-		//Reload user
-		$oUser = $oUserModel->getUser($oUser->getUserId());
-
-		//Create email view body
-		$oView = new \Zend\View\Model\ViewModel(array(
-			'user_email' => $oUser->getUserEmail(),
-			'user_registration_key' => $oUser->getUserRegistrationKey()
-		));
-
-		//Retrieve translator
-		$oTranslator = $this->getServiceLocator()->get('translator');
-
-		//Retrieve Messenger service
-		$oMessengerService = $this->getServiceLocator()->get('MessengerService');
-
-		//Render view & send email to user
-		$oMessengerService->renderView($oView->setTemplate('email/user/confirm-email'),function($sHtml)use($oMessengerService,$oTranslator,$oUser){
-			$oMessage = new \Messenger\Message();
-			$oMessengerService->sendMessage(
-				$oMessage->setFrom(\Messenger\Message::SYSTEM_USER)
-				->setTo($oUser)
-				->setSubject($oTranslator->translate('change_email'))
-				->setBody($sHtml),
-				\Messenger\Service\MessengerService::MEDIA_EMAIL
-			);
-		});
-
-		//Logout User
-		$this->getServiceLocator()->get('UserService')->logout();
-
-		return $this;
+	public function changeUserLoggedDisplayName($sUserDisplayName){
+		if(!is_string($sUserDisplayName))throw new \InvalidArgumentException('User display name expects string, "'.gettype($sUserDisplayName).'" given');
+		if(empty($sUserDisplayName))throw new \InvalidArgumentException('User display name is empty');
 	}
 }
