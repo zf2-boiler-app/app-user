@@ -4,7 +4,7 @@ class UserService implements \Zend\ServiceManager\ServiceLocatorAwareInterface{
 	use \Zend\ServiceManager\ServiceLocatorAwareTrait;
 
 	/**
-	 * Try to generate a unique display name
+	 * Attempt to generate a unique display name
 	 * @param string $sUserDisplayName
 	 * @throws \InvalidArgumentException
 	 * @throws \RuntimeException
@@ -22,6 +22,7 @@ class UserService implements \Zend\ServiceManager\ServiceLocatorAwareInterface{
 		while($iIterator < 10){
 			if($this->isUserDisplayNameAvailable($sUserDisplayName) === true)return $sUserDisplayName;
 			$sUserDisplayName = $sOrginalUserDisplayName.rand(1000,9999);
+			$iIterator++;
 		}
 
 		//Hard generator
@@ -29,6 +30,7 @@ class UserService implements \Zend\ServiceManager\ServiceLocatorAwareInterface{
 		while($iIterator < 10){
 			if($this->isUserDisplayNameAvailable($sUserDisplayName) === true)return $sUserDisplayName;
 			$sUserDisplayName = $sOrginalUserDisplayName.str_shuffle(uniqid());
+			$iIterator++;
 		}
 
 		//Generate failed
@@ -46,8 +48,10 @@ class UserService implements \Zend\ServiceManager\ServiceLocatorAwareInterface{
 			empty($sUserDisplayName)?'':gettype($sUserDisplayName)
 		));
 		//If request is from logged user
-		if($this->getServiceLocator()->get('AccessControlAuthenticationService')->hasIdentity()
-		&& $this->getServiceLocator()->get('AccessControlService')->getLoggedUser()->getUserDisplayName() === $sUserDisplayName)return str_ireplace(
+		if(
+			$this->getServiceLocator()->get('AccessControlAuthenticationService')->hasIdentity()
+			&& $this->getServiceLocator()->get('AccessControlService')->getAuthenticatedAuthAccess()->getAuthAccessUser()->getUserDisplayName() === $sUserDisplayName
+		)return str_ireplace(
 			'%value%',$sUserDisplayName,
 			$this->getServiceLocator()->get('translator')->translate('The display name "%value%" is the same as currently used','validator')
 		);

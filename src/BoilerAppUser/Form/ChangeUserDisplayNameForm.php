@@ -1,6 +1,6 @@
 <?php
 namespace BoilerAppUser\Form;
-class ChangeAvatarForm extends \BoilerAppDisplay\Form\AbstractForm{
+class ChangeUserDisplayNameForm extends \BoilerAppDisplay\Form\AbstractForm{
 
 	/**
 	 * Constructor
@@ -11,11 +11,13 @@ class ChangeAvatarForm extends \BoilerAppDisplay\Form\AbstractForm{
 	public function __construct($sName = null,$aOptions = null){
 		parent::__construct($sName,$aOptions);
 		$this->add(array(
-			'name' => 'user_display_name',
+			'name' => 'new_user_display_name',
 			'attributes' => array(
 				'required' => true,
-				'class' => 'required',
-				'autofocus' => 'autofocus'
+				'class' => 'required displayNameIsAvailable',
+				'autofocus' => 'autofocus',
+				'onchange' => 'oController.checkDisplayNameAvailability(document.id(this));',
+				'autocomplete' => 'off'
 			),
 			'options' => array(
 				'label' => 'display_name'

@@ -8,7 +8,7 @@ return array(
 			),
 			'may_terminate' => true,
 			'child_routes' => array(
-				'account' => array(
+				'Account' => array(
 					'type' => 'Zend\Mvc\Router\Http\Literal',
 					'options' => array(
 						'route' => '/account',
@@ -18,43 +18,43 @@ return array(
 						)
 					)
 				),
-				'delete-account' => array(
+				'DeleteAccount' => array(
 					'type' => 'Zend\Mvc\Router\Http\Literal',
 					'options' => array(
 						'route' => '/delete-account',
 						'defaults' => array(
 							'controller' => 'BoilerAppUser\Controller\UserAccount',
-							'action' => 'deleteaccount'
+							'action' => 'deleteAccount'
 						)
 					)
 				),
-				'change-password' => array(
-					'type' => 'Zend\Mvc\Router\Http\Literal',
-					'options' => array(
-						'route' => '/change-password',
-						'defaults' => array(
-							'controller' => 'BoilerAppUser\Controller\UserAccount',
-							'action' => 'changepassword'
-						)
-					)
-				),
-				'change-email' => array(
-					'type' => 'Zend\Mvc\Router\Http\Literal',
-					'options' => array(
-						'route' => '/change-email',
-						'defaults' => array(
-							'controller' => 'BoilerAppUser\Controller\UserAccount',
-							'action' => 'changeemail'
-						)
-					)
-				),
-				'change-avatar' => array(
+				'ChangeAvatar' => array(
 					'type' => 'Zend\Mvc\Router\Http\Literal',
 					'options' => array(
 						'route' => '/change-avatar',
 						'defaults' => array(
 							'controller' => 'BoilerAppUser\Controller\UserAccount',
-							'action' => 'changeavatar'
+							'action' => 'changeAvatar'
+						)
+					)
+				),
+				'ChangeDisplayName' => array(
+					'type' => 'Zend\Mvc\Router\Http\Literal',
+					'options' => array(
+						'route' => '/change-display-name',
+						'defaults' => array(
+							'controller' => 'BoilerAppUser\Controller\UserAccount',
+							'action' => 'changeDisplayName'
+						)
+					)
+				),
+				'CheckDisplayNameAvailability' => array(
+					'type' => 'Zend\Mvc\Router\Http\Literal',
+					'options' => array(
+						'route' => '/check-display-name-availability',
+						'defaults' => array(
+							'controller' => 'BoilerAppUser\Controller\UserAccount',
+							'action' => 'checkDisplayNameAvailability'
 						)
 					)
 				)

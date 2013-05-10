@@ -6,8 +6,14 @@ class ChangeUserAvatarInputFilter extends \Zend\InputFilter\InputFilter{
 	 */
     public function __construct(){
     	$this->add(array(
-			'name' => 'user_new_avatar',
-			'required' => true
+			'name' => 'new_user_avatar',
+			'required' => true,
+    		'validators' => array(
+    			array(
+    				'name' => 'Zend\Validator\File\Extension',
+    				'options' => array('extension' => array('png','jpg','gif','jpeg'))
+    			)
+    		)
 		));
     }
 }

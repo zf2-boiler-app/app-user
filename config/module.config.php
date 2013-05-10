@@ -7,7 +7,6 @@ return array(
     ),
 	'controllers' => array(
         'invokables' => array(
-            'BoilerAppUser\Controller\User' => 'BoilerAppUser\Controller\UserController',
         	'BoilerAppUser\Controller\UserAccount' => 'BoilerAppUser\Controller\UserAccountController'
         )
     ),
@@ -41,16 +40,6 @@ return array(
 			)
 		)
 	),
-	'medias' => array(
-		\BoilerAppMessenger\Media\Mail\MailMessageRenderer::MEDIA => array(
-			'template_map' => array(
-				'email/user/confirm-email' => __DIR__ . '/../view/user/email/confirm-email.phtml',
-				'email/user/confirm-reset-password' => __DIR__ . '/../view/user/email/confirm-reset-password.phtml',
-				'email/user/password-reset' => __DIR__ . '/../view/user/email/password-reset.phtml',
-				'email/user/password-changed' => __DIR__ . '/../view/user/email/password-changed.phtml'
-			)
-		)
-	),
     'view_manager' => array(
     	'template_path_stack' => array('User' => __DIR__ . '/../view')
     ),
@@ -60,16 +49,10 @@ return array(
 			'UserAccountService' => 'BoilerAppUser\Factory\UserAccountServiceFactory',
 			'UserModel' => 'BoilerAppUser\Factory\UserModelFactory',
 			'UserProviderModel' => 'BoilerAppUser\Factory\UserProviderModelFactory',
-			'ChangeAvatarForm' => 'BoilerAppUser\Factory\ChangeAvatarFormFactory',
-			'ChangeEmailForm' => 'BoilerAppUser\Factory\ChangeEmailFormFactory',
-			'ChangePasswordForm' => 'BoilerAppUser\Factory\ChangePasswordFormFactory',
+			'ChangeUserAvatarForm' => 'BoilerAppUser\Factory\ChangeUserAvatarFormFactory',
+			'ChangeUserDisplayNameForm' => 'BoilerAppUser\Factory\ChangeUserDisplayNameFormFactory',
 		)
 	),
-	'controller_plugins' => array(
-       	'invokables' => array(
-        	'userMustBeLoggedIn' => 'BoilerAppUser\Mvc\Controller\Plugin\UserMustBeLoggedInPlugin',
-       	)
-    ),
 	'view_helpers' => array(
 		'factories' => array(
 			'userAvatar' => 'BoilerAppUser\Factory\UserAvatarHelperFactory'

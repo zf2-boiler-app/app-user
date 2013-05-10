@@ -11,7 +11,7 @@ class ChangeUserAvatarForm extends \BoilerAppDisplay\Form\AbstractForm{
 	public function __construct($sName = null,$aOptions = null){
 		parent::__construct($sName,$aOptions);
 		$this->add(array(
-			'name' => 'user_new_avatar',
+			'name' => 'new_user_avatar',
 			'type' => 'Zend\Form\Element\File',
 			'attributes' => array(
 				'required' => true,

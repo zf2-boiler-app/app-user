@@ -2,69 +2,75 @@
 namespace BoilerAppUser\Controller;
 class UserAccountController extends \BoilerAppDisplay\Mvc\Controller\AbstractActionController{
 
+	/**
+	 * Show account view
+	 * @return \Zend\View\Model\ViewModel
+	 */
 	public function accountAction(){
-		//Check user is logged in
-		if(($bReturn = $this->userMustBeLoggedIn()) !== true)return $bReturn;
 		//Define title
 		$this->layout()->title = $this->getServiceLocator()->get('Translator')->translate('account');
 		return $this->view;
 	}
 
-	public function deleteaccountAction(){
-		//Check user is logged in
-		if(($bReturn = $this->userMustBeLoggedIn()) !== true)return $bReturn;
-
+	/**
+	 * Delete user logged
+	 * @return \Zend\View\Model\ViewModel
+	 */
+	public function deleteAccountAction(){
 		$this->layout()->title = $this->getServiceLocator()->get('Translator')->translate('delete_account');
-		$this->getServiceLocator()->get('UserAccountService')->deleteLoggedUser();
+		$this->getServiceLocator()->get('UserAccountService')->removeAuthenticatedUser();
 		return $this->view;
 	}
 
-	public function changeavatarAction(){
+	/**
+	 * Show change user avatar form or process user avatar change attempt
+	 * @throws \LogicException
+	 * @return \Zend\View\Model\ViewModel
+	 */
+	public function changeAvatarAction(){
 		if($this->getRequest()->isPost())$this->view->setTerminal(true);
-		elseif(!$this->getRequest()->isXmlHttpRequest())throw new \Exception('Only ajax requests are allowed for this action');
-
-		//Check user is logged in
-		if(($bReturn = $this->userMustBeLoggedIn()) !== true)return $bReturn;
+		elseif(!$this->getRequest()->isXmlHttpRequest())throw new \LogicException('Only ajax requests are allowed for action "changeAvatar"');
 
 		//Assign form
-		$this->view->form = $this->getServiceLocator()->get('ChangeAvatarForm');
+		$this->view->form = $this->getServiceLocator()->get('ChangeUserAvatarForm');
 		if(
 			$this->getRequest()->isPost()
 			&& $this->view->form->setData($this->params()->fromFiles())->isValid()
-			&& $this->getServiceLocator()->get('UserAccountService')->changeUserLoggedAvatar($this->params()->fromFiles('user_new_avatar'))
+			&& $aAvatarfileInfos = $this->params()->fromFiles('new_user_avatar')
+			&& $this->getServiceLocator()->get('UserAccountService')->changeAuthenticatedUserAvatar($aAvatarfileInfos['tmp_name'])
 		)$this->view->avatarUpdated = true;
 		return $this->view;
 	}
 
-	public function changeemailAction(){
-		if(!$this->getRequest()->isXmlHttpRequest())throw new \Exception('Only ajax requests are allowed for this action');
-
-		//Check user is logged in
-		if(($bReturn = $this->userMustBeLoggedIn()) !== true)return $bReturn;
+	/**
+	 * Show change user avatar form or process user avatar change attempt
+	 * @throws \LogicException
+	 * @return \Zend\View\Model\ViewModel
+	 */
+	public function changeDisplayNameAction(){
+		if(!$this->getRequest()->isXmlHttpRequest())throw new \LogicException('Only ajax requests are allowed for action "changeDisplayName"');
 
 		//Assign form
-		$this->view->form = $this->getServiceLocator()->get('ChangeEmailForm');
+		$this->view->form = $this->getServiceLocator()->get('ChangeUserDisplayNameForm');
 		if(
 			$this->getRequest()->isPost()
 			&& $this->view->form->setData($this->params()->fromPost())->isValid()
-			&& $this->getServiceLocator()->get('UserAccountService')->changeUserLoggedEmail($this->params()->fromPost('user_new_email'))
-		)$this->view->emailChanged = true;
+			&& $this->getServiceLocator()->get('UserAccountService')->changeAuthenticatedUserDisplayName($this->params()->frompost('new_user_display_name'))
+		)$this->view->displayNameChanged = true;
 		return $this->view;
 	}
 
-	public function changepasswordAction(){
-		if(!$this->getRequest()->isXmlHttpRequest())throw new \Exception('Only ajax requests are allowed for this action');
-
-		//Check user is logged in
-		if(($bReturn = $this->userMustBeLoggedIn()) !== true)return $bReturn;
-
-		//Assign form
-		$this->view->form = $this->getServiceLocator()->get('ChangePasswordForm');
-		if(
-			$this->getRequest()->isPost()
-			&& $this->view->form->setData($this->params()->fromPost())->isValid()
-			&& $this->getServiceLocator()->get('UserAccountService')->changeUserLoggedPassword($this->params()->fromPost('user_new_password'))
-		)$this->view->passwordChanged = true;
-		return $this->view;
+	/**
+	 * Process ajax request to check display name availability
+	 * @throws \LogicException
+	 * @return \Zend\View\Model\JsonModel
+	 */
+	public function checkDisplayNameAvailabilityAction(){
+		if(!$this->getRequest()->isXmlHttpRequest())throw new \LogicException('Only ajax requests are allowed for action "checkDisplayNameAvailability"');
+		if(!($sDisplayName = $this->params()->fromPost('display_name')))throw new \LogicException('"display_name" param is missing');
+		return $this->view->setVariable(
+			'available',
+			$this->getServiceLocator()->get('UserService')->isUserDisplayNameAvailable($sDisplayName)
+		);
 	}
 }

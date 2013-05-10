@@ -1,1 +1,6 @@
-/*-avatar.png
+# Ignore everything in this directory
+*
+# Except this file
+!.gitignore
+# Except default avatar
+!default-avatar.png
