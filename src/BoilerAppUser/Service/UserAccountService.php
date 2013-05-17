@@ -26,7 +26,7 @@ class UserAccountService implements \Zend\ServiceManager\ServiceLocatorAwareInte
 		if(!is_string($sUserAvatarFilePath))throw new \InvalidArgumentException('User avatar path expects string, "'.gettype($sUserAvatarFilePath).'" given');
 		if(!is_readable($sUserAvatarFilePath))throw new \InvalidArgumentException('User avatar path "'.$sUserAvatarFilePath.'" is not a readable file path');
 
-		if(!($aImagesInfos = getimagesize($sUserAvatarFilePath)) || empty($aImagesInfos[2]))\RuntimeException('An error occurred while retrieving user avatar "'.$sUserAvatarFilePath.'" infos');
+		if(!($aImagesInfos = @getimagesize($sUserAvatarFilePath)) || empty($aImagesInfos[2]))\RuntimeException('An error occurred while retrieving user avatar "'.$sUserAvatarFilePath.'" infos');
 		switch($aImagesInfos[2]){
 			case IMAGETYPE_JPEG:
 				if(!$oImage = imagecreatefromjpeg($sUserAvatarFilePath))throw new \RuntimeException('An error occurred during creating image from "jpeg" user avatar "'.$sUserAvatarFilePath.'"');
@@ -55,13 +55,13 @@ class UserAccountService implements \Zend\ServiceManager\ServiceLocatorAwareInte
 		//Save avatar
 		if(!imagepng(
 			$oNewImage,
-			$aConfiguration['paths']['avatarsPath'].DIRECTORY_SEPARATOR.$this->getServiceLocator()->get('AccessControlService')->getLoggedUser()->getUserId().'-avatar.png'
+			$aConfiguration['paths']['avatarsPath'].DIRECTORY_SEPARATOR.$this->getServiceLocator()->get('AccessControlService')->getAuthenticatedAuthAccess()->getAuthAccessUser()->getUserId().'-avatar.png'
 		))throw new \RuntimeException('An error occurred during saving user avatar');
 		return $this;
 	}
 
 	/**
-	 * Change current authenticated display name if available
+	 * Change current authenticated user display name if available
 	 * @param string $sUserDisplayName
 	 * @throws \InvalidArgumentException
 	 * @return \BoilerAppUser\Service\UserAccountService

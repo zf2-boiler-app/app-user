@@ -2,6 +2,9 @@
 namespace BoilerAppUserTest\Entity;
 class UserEntityTest extends \BoilerAppTest\PHPUnit\TestCase\AbstractTestCase{
 
+	/**
+	 * @var \BoilerAppUser\Entity\UserEntity
+	 */
 	protected $userEntity;
 
 	/**

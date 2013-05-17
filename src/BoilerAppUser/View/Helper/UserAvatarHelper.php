@@ -34,9 +34,10 @@ class UserAvatarHelper extends \Zend\View\Helper\AbstractHelper{
 	 * @return string
 	 */
 	public function __invoke(\BoilerAppUser\Entity\UserEntity $oUser){
-		if(!file_exists($sAvatarPath = $this->getAvatarsPath().DIRECTORY_SEPARATOR.$oUser->getUserId().'-avatar.png')){
-			if(!file_exists($sAvatarPath = $this->getAvatarsPath().DIRECTORY_SEPARATOR.'default-avatar.png'))throw new \LogicException('Default avatar "'.$sAvatarPath.'" does not exist');
-		}
+		if(
+			!file_exists($sAvatarPath = $this->getAvatarsPath().DIRECTORY_SEPARATOR.$oUser->getUserId().'-avatar.png')
+			&& !file_exists($sAvatarPath = $this->getAvatarsPath().DIRECTORY_SEPARATOR.'default-avatar.png')
+		)throw new \LogicException('Default avatar "'.$sAvatarPath.'" does not exist');
 		return base64_encode(file_get_contents($sAvatarPath));
 	}
 }

@@ -7,10 +7,8 @@
 	</div>
 	<div class="span10">
 		<dl class="dl-horizontal">
-			<dt><?=$this->translate('email')?> :</dt>
-			<dd><?=$this->layout()->authenticatedUser->getUserEmail()?> | <a href="#" onclick="oController.changeUserEmail();return false;"><?=$this->translate('change_email')?></a></dd>
-			<dt><?=$this->translate('password')?> :</dt>
-			<dd><a href="#" onclick="oController.changeUserPassword();return false;"><?=$this->translate('change_password')?></a></dd>
+			<dt><?=$this->translate('display_name')?> :</dt>
+			<dd><?=$this->layout()->authenticatedUser->getUserDisplayName()?> | <a href="#" onclick="oController.changeUserDisplayName();return false;"><?=$this->translate('change_display_name')?></a></dd>
 		</dl>
 		<a class="btn btn-small btn-danger pull-right" href="<?=$this->url('User/DeleteAccount')?>" onclick="return confirm(oController.translate('confirm_delete_account'));">
 			<i class="icon-warning-sign"></i>

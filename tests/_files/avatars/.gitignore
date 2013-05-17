@@ -1,0 +1,10 @@
+# Ignore everything in this directory
+*
+# Except this file
+!.gitignore
+# Except default avatar
+!default-avatar.png
+# Except tests avatar
+!1.png
+!1.gif
+!1.jpg

@@ -6,7 +6,7 @@ class UserAccountController extends \BoilerAppDisplay\Mvc\Controller\AbstractAct
 	 * Show account view
 	 * @return \Zend\View\Model\ViewModel
 	 */
-	public function accountAction(){
+	public function indexAction(){
 		//Define title
 		$this->layout()->title = $this->getServiceLocator()->get('Translator')->translate('account');
 		return $this->view;
@@ -36,14 +36,14 @@ class UserAccountController extends \BoilerAppDisplay\Mvc\Controller\AbstractAct
 		if(
 			$this->getRequest()->isPost()
 			&& $this->view->form->setData($this->params()->fromFiles())->isValid()
-			&& $aAvatarfileInfos = $this->params()->fromFiles('new_user_avatar')
-			&& $this->getServiceLocator()->get('UserAccountService')->changeAuthenticatedUserAvatar($aAvatarfileInfos['tmp_name'])
+			&& ($aData = $this->view->form->getData())
+			&& $this->getServiceLocator()->get('UserAccountService')->changeAuthenticatedUserAvatar($aData['new_user_avatar']['tmp_name'])
 		)$this->view->avatarUpdated = true;
 		return $this->view;
 	}
 
 	/**
-	 * Show change user avatar form or process user avatar change attempt
+	 * Show change user display name form or process user display name change attempt
 	 * @throws \LogicException
 	 * @return \Zend\View\Model\ViewModel
 	 */
@@ -55,7 +55,8 @@ class UserAccountController extends \BoilerAppDisplay\Mvc\Controller\AbstractAct
 		if(
 			$this->getRequest()->isPost()
 			&& $this->view->form->setData($this->params()->fromPost())->isValid()
-			&& $this->getServiceLocator()->get('UserAccountService')->changeAuthenticatedUserDisplayName($this->params()->frompost('new_user_display_name'))
+			&& ($aData = $this->view->form->getData())
+			&& $this->getServiceLocator()->get('UserAccountService')->changeAuthenticatedUserDisplayName($aData['new_user_display_name'])
 		)$this->view->displayNameChanged = true;
 		return $this->view;
 	}

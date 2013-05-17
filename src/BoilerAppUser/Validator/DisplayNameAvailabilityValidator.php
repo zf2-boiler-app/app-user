@@ -10,7 +10,7 @@ class DisplayNameAvailabilityValidator extends \Zend\Validator\AbstractValidator
      */
     protected $messageTemplates = array(
     	self::INVALID => 'Invalid type given. String expected',
-    	self::SAME_AS_CURRENTLY_USED => 'The display name is the same as currently used',
+    	self::SAME_AS_CURRENTLY_USED => 'The display name "%value%" is the same as currently used',
         self::UNAVAILABLE => 'The display name "%value%" is unavailable'
     );
 
@@ -78,7 +78,7 @@ class DisplayNameAvailabilityValidator extends \Zend\Validator\AbstractValidator
 	 * @return boolean
 	 */
     public function sameAsCurrentlyUsed($sDisplayName){
-    	return ($sDisplayName = $this->getCurrentDisplayName())?$sCurrentDisplayName === $sDisplayName:false;
+    	return ($sCurrentDisplayName = $this->getCurrentDisplayName())?$sCurrentDisplayName === $sDisplayName:false;
     }
 
     /**

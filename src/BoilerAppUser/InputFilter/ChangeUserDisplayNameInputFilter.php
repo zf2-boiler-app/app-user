@@ -3,6 +3,7 @@ namespace BoilerAppUser\InputFilter;
 class ChangeUserDisplayNameInputFilter extends \Zend\InputFilter\InputFilter{
 	/**
 	 * Constructor
+	 * @param \BoilerAppUser\Repository\UserRepository $oUserRepository
 	 */
     public function __construct(\BoilerAppUser\Repository\UserRepository $oUserRepository){
     	$this->add(array(

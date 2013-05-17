@@ -61,6 +61,40 @@ class UserAccountControllerTest extends \BoilerAppTest\PHPUnit\TestCase\Abstract
 		$this->assertMatchedRouteName('User/ChangeAvatar');
 	}
 
+	public function testChangeAvatarActionPost(){
+		//Add authentication fixture
+		$this->addFixtures(array('BoilerAppUserTest\Fixture\UserLoggedFixture'));
+
+		//Authenticate user
+		$this->getApplicationServiceLocator()->get('AuthenticationService')->authenticate(
+			\BoilerAppAccessControl\Service\AuthenticationService::LOCAL_AUTHENTICATION,
+			'valid@test.com',
+			'valid-credential'
+		);
+
+		$this->getRequest()->getFiles()->set('new_user_avatar',$_FILES['new_user_avatar'] = array(
+			'name' => '1.png',
+			'type' => 'image/png',
+    		'tmp_name' => $sAvatarPath = getcwd().DIRECTORY_SEPARATOR.'tests/_files/avatars/1.png',
+		    'error' => 0,
+		    'size' => filesize($sAvatarPath)
+		));
+
+		//Remove file validators for tests (Phunit can't simulate file upload)
+		$this->getApplicationServiceLocator()->get('ChangeUserAvatarForm')
+			->setInputFilter(new \Zend\InputFilter\InputFilter())
+			->getInputFilter()->remove('new_user_avatar')->add(new \Zend\InputFilter\Input(),'new_user_avatar');
+
+		$this->dispatch('/user/change-avatar',\Zend\Http\Request::METHOD_POST,array());
+		$this->assertResponseStatusCode(200);
+		$this->assertModuleName('BoilerAppUser');
+		$this->assertControllerName('BoilerAppUser\Controller\UserAccount');
+		$this->assertControllerClass('UserAccountController');
+		$this->assertMatchedRouteName('User/ChangeAvatar');
+
+		$this->assertFileExists(getcwd().DIRECTORY_SEPARATOR.'tests/_files/avatars/1-avatar.png');
+	}
+
 	public function testChangeDisplayNameAction(){
 		//Add authentication fixture
 		$this->addFixtures(array('BoilerAppUserTest\Fixture\UserLoggedFixture'));

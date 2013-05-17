@@ -6,9 +6,9 @@ return array(
 		'AssetsBundle',
 		'TwbBundle',
 		'BoilerAppDb',
-		'BoilerAppUser',
 		'BoilerAppDisplay',
-		'BoilerAppAccessControl'
+		'BoilerAppAccessControl',
+		'BoilerAppUser'
     ),
     'module_listener_options' => array(
 		'config_glob_paths'    => array(

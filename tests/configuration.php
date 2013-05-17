@@ -1,5 +1,8 @@
 <?php
 return array(
+	'paths' => array(
+    	'avatarsPath' => __DIR__.'/_files/avatars'
+    ),
 	'asset_bundle' => array(
 		'cachePath' => __DIR__.'/_files/cache',
 		'cacheUrl' => '@zfBaseUrl/cache/',
@@ -25,5 +28,5 @@ return array(
 				return $oLogger->addWriter(new \Zend\Log\Writer\Stream(STDERR));
 			}
 		)
-	),
+	)
 );
