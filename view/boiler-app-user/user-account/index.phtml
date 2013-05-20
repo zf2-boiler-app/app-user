@@ -2,15 +2,15 @@
 <div class="row-fluid" style="margin-bottom:10px;">
 	<div class="span2">
 		<a href="#" onclick="oController.changeUserAvatar();return false;">
-			<img id="user-avatar" src="data:image/png;base64,<?=$this->userAvatar($this->layout()->authenticatedUser)?>" class="img-rounded img-polaroid"  data-behavior="BS.Twipsy" title="<?=$this->translate('change_avatar')?>"/>
+			<img id="user_avatar" src="data:image/png;base64,<?=$this->userAvatar($this->layout()->authenticatedUser)?>" class="img-rounded img-polaroid"  data-behavior="BS.Twipsy" title="<?=$this->translate('change_avatar')?>"/>
 		</a>
 	</div>
 	<div class="span10">
 		<dl class="dl-horizontal">
-			<dt><?=$this->translate('display_name')?> :</dt>
-			<dd><?=$this->layout()->authenticatedUser->getUserDisplayName()?> | <a href="#" onclick="oController.changeUserDisplayName();return false;"><?=$this->translate('change_display_name')?></a></dd>
+			<dt><?=$this->translate('user_display_name')?> :</dt>
+			<dd><span id="user_display_name"><?=$this->layout()->authenticatedUser->getUserDisplayName()?></span> | <a href="#" onclick="oController.changeUserDisplayName();return false;"><?=$this->translate('change_display_name')?></a></dd>
 		</dl>
-		<a class="btn btn-small btn-danger pull-right" href="<?=$this->url('User/DeleteAccount')?>" onclick="return confirm(oController.translate('confirm_delete_account'));">
+		<a class="btn btn-small btn-danger pull-right" href="<?=$this->url('User/Account/DeleteAccount')?>" onclick="return confirm(oController.translate('confirm_delete_account'));">
 			<i class="icon-warning-sign"></i>
 			<?=$this->translate('delete_account')?>
 		</a>

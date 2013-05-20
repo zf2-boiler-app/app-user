@@ -7,7 +7,7 @@ var UserControllerUserAccount = {
 	changeUserAvatar : function(){
 		new Modal.Popup({
 			'title':this.translate('change_avatar'),
-			'url':this.url('User/change-avatar')
+			'url':this.url('User/Account/change-avatar')
 		});
 		return this;
 	},
@@ -17,7 +17,7 @@ var UserControllerUserAccount = {
 	 * @return UserControllerUserAccount
 	 */
 	setUserAvatar : function(sAvatar){
-		var eUserAvatar = document.id('user-avatar');
+		var eUserAvatar = document.id('user_avatar');
 		if(eUserAvatar == null)throw 'User avatar image is undefined';
 		eUserAvatar.set('src','data:image/png;base64,'+sAvatar);
 		return this;
@@ -26,23 +26,23 @@ var UserControllerUserAccount = {
 	/**
 	 * @return UserControllerUserAccount
 	 */
-	changeUserPassword : function(){
+	changeUserDisplayName : function(){
 		new Modal.Popup({
-			'title':this.translate('change_password'),
-			'url':this.url('User/change-password')
+			'title':this.translate('change_display_name'),
+			'url':this.url('User/Account/ChangeDisplayName')
 		});
 		return this;
 	},
 	
 	/**
+	 * @param string sDisplayName
 	 * @return UserControllerUserAccount
 	 */
-	changeUserEmail : function(){
-		new Modal.Popup({
-			'title':this.translate('change_email'),
-			'url':this.url('User/change-email')
-		});
+	setUserDisplayName : function(sDisplayName){
+		var eUserDisplayName = document.id('user_display_name');
+		if(eUserDisplayName == null)throw 'User display name element is undefined';
+		eUserDisplayName.set('html',sDisplayName);
 		return this;
-	},
+	}
 };
 UserControllerUserAccount = new Class(UserControllerUserAccount);

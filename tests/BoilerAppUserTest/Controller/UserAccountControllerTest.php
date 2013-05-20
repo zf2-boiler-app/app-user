@@ -32,12 +32,12 @@ class UserAccountControllerTest extends \BoilerAppTest\PHPUnit\TestCase\Abstract
 			'valid-credential'
 		);
 
-		$this->dispatch('/user/delete-account');
+		$this->dispatch('/user/account/delete-account');
 		$this->assertResponseStatusCode(200);
 		$this->assertModuleName('BoilerAppUser');
 		$this->assertControllerName('BoilerAppUser\Controller\UserAccount');
 		$this->assertControllerClass('UserAccountController');
-		$this->assertMatchedRouteName('User/DeleteAccount');
+		$this->assertMatchedRouteName('User/Account/DeleteAccount');
 	}
 
 	public function testChangeAvatarAction(){
@@ -53,12 +53,12 @@ class UserAccountControllerTest extends \BoilerAppTest\PHPUnit\TestCase\Abstract
 
 		$this->getRequest()->getHeaders()->addHeaderLine('X_REQUESTED_WITH', 'XMLHttpRequest');
 
-		$this->dispatch('/user/change-avatar');
+		$this->dispatch('/user/account/change-avatar');
 		$this->assertResponseStatusCode(200);
 		$this->assertModuleName('BoilerAppUser');
 		$this->assertControllerName('BoilerAppUser\Controller\UserAccount');
 		$this->assertControllerClass('UserAccountController');
-		$this->assertMatchedRouteName('User/ChangeAvatar');
+		$this->assertMatchedRouteName('User/Account/ChangeAvatar');
 	}
 
 	public function testChangeAvatarActionPost(){
@@ -85,12 +85,12 @@ class UserAccountControllerTest extends \BoilerAppTest\PHPUnit\TestCase\Abstract
 			->setInputFilter(new \Zend\InputFilter\InputFilter())
 			->getInputFilter()->remove('new_user_avatar')->add(new \Zend\InputFilter\Input(),'new_user_avatar');
 
-		$this->dispatch('/user/change-avatar',\Zend\Http\Request::METHOD_POST,array());
+		$this->dispatch('/user/account/change-avatar',\Zend\Http\Request::METHOD_POST,array());
 		$this->assertResponseStatusCode(200);
 		$this->assertModuleName('BoilerAppUser');
 		$this->assertControllerName('BoilerAppUser\Controller\UserAccount');
 		$this->assertControllerClass('UserAccountController');
-		$this->assertMatchedRouteName('User/ChangeAvatar');
+		$this->assertMatchedRouteName('User/Account/ChangeAvatar');
 
 		$this->assertFileExists(getcwd().DIRECTORY_SEPARATOR.'tests/_files/avatars/1-avatar.png');
 	}
@@ -108,12 +108,12 @@ class UserAccountControllerTest extends \BoilerAppTest\PHPUnit\TestCase\Abstract
 
 		$this->getRequest()->getHeaders()->addHeaderLine('X_REQUESTED_WITH', 'XMLHttpRequest');
 
-		$this->dispatch('/user/change-display-name');
+		$this->dispatch('/user/account/change-display-name');
 		$this->assertResponseStatusCode(200);
 		$this->assertModuleName('BoilerAppUser');
 		$this->assertControllerName('BoilerAppUser\Controller\UserAccount');
 		$this->assertControllerClass('UserAccountController');
-		$this->assertMatchedRouteName('User/ChangeDisplayName');
+		$this->assertMatchedRouteName('User/Account/ChangeDisplayName');
 	}
 
 	public function testChangeDisplayNameActionPost(){
@@ -129,14 +129,14 @@ class UserAccountControllerTest extends \BoilerAppTest\PHPUnit\TestCase\Abstract
 
 		$this->getRequest()->getHeaders()->addHeaderLine('X_REQUESTED_WITH', 'XMLHttpRequest');
 
-		$this->dispatch('/user/change-display-name',\Zend\Http\Request::METHOD_POST,array(
+		$this->dispatch('/user/account/change-display-name',\Zend\Http\Request::METHOD_POST,array(
 			'new_user_display_name' => 'New display name'
 		));
 		$this->assertResponseStatusCode(200);
 		$this->assertModuleName('BoilerAppUser');
 		$this->assertControllerName('BoilerAppUser\Controller\UserAccount');
 		$this->assertControllerClass('UserAccountController');
-		$this->assertMatchedRouteName('User/ChangeDisplayName');
+		$this->assertMatchedRouteName('User/Account/ChangeDisplayName');
 
 		$this->assertEquals('New display name',$this->getServiceManager()->get('AccessControlService')->getAuthenticatedAuthAccess()->getAuthAccessUser()->getUserDisplayName());
 	}
@@ -156,38 +156,38 @@ class UserAccountControllerTest extends \BoilerAppTest\PHPUnit\TestCase\Abstract
 
 		$this->getRequest()->getHeaders()->addHeaderLine('X_REQUESTED_WITH', 'XMLHttpRequest')->addHeader(\Zend\Http\Header\Accept::fromString('Accept: application/json; version=0.2'));
 
-		$this->dispatch('/user/check-display-name-availability',\Zend\Http\Request::METHOD_POST,array(
+		$this->dispatch('/user/account/check-display-name-availability',\Zend\Http\Request::METHOD_POST,array(
 			'display_name' => 'New display name'
 		));
 		$this->assertResponseStatusCode(200);
 		$this->assertModuleName('BoilerAppUser');
 		$this->assertControllerName('BoilerAppUser\Controller\UserAccount');
 		$this->assertControllerClass('UserAccountController');
-		$this->assertMatchedRouteName('User/CheckDisplayNameAvailability');
+		$this->assertMatchedRouteName('User/Account/CheckDisplayNameAvailability');
 		$this->assertEquals('{"available":true}',$this->getResponse()->getContent());
 
 		//Same as currently used
-		$this->dispatch('/user/check-display-name-availability',\Zend\Http\Request::METHOD_POST,array(
+		$this->dispatch('/user/account/check-display-name-availability',\Zend\Http\Request::METHOD_POST,array(
 			'display_name' => 'Valid'
 		));
 		$this->assertResponseStatusCode(200);
 		$this->assertModuleName('BoilerAppUser');
 		$this->assertControllerName('BoilerAppUser\Controller\UserAccount');
 		$this->assertControllerClass('UserAccountController');
-		$this->assertMatchedRouteName('User/CheckDisplayNameAvailability');
+		$this->assertMatchedRouteName('User/Account/CheckDisplayNameAvailability');
 		$this->assertEquals(\Zend\Json\Encoder::encode(array(
 			'available' => $oTranslator->translate('The display name "%value%" is the same as currently used','validator')
 		)),$this->getResponse()->getContent());
 
 		//Unavailable
-		$this->dispatch('/user/check-display-name-availability',\Zend\Http\Request::METHOD_POST,array(
+		$this->dispatch('/user/account/check-display-name-availability',\Zend\Http\Request::METHOD_POST,array(
 			'display_name' => 'Valid1'
 		));
 		$this->assertResponseStatusCode(200);
 		$this->assertModuleName('BoilerAppUser');
 		$this->assertControllerName('BoilerAppUser\Controller\UserAccount');
 		$this->assertControllerClass('UserAccountController');
-		$this->assertMatchedRouteName('User/CheckDisplayNameAvailability');
+		$this->assertMatchedRouteName('User/Account/CheckDisplayNameAvailability');
 		$this->assertEquals(\Zend\Json\Encoder::encode(array(
 			'available' => str_replace('%value%', 'Valid1', $oTranslator->translate('The display name "%value%" is unavailable','validator'))
 		)),$this->getResponse()->getContent());

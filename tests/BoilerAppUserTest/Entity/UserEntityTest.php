@@ -18,4 +18,14 @@ class UserEntityTest extends \BoilerAppTest\PHPUnit\TestCase\AbstractTestCase{
 	public function testSetUserAuthAccess(){
 		$this->assertEquals($this->userEntity,$this->userEntity->setUserAuthAccess(new \BoilerAppAccessControl\Entity\AuthAccessEntity()));
 	}
+
+	public function testGetUserAuthAccess(){
+		$oAuthAccessEntity = new \BoilerAppAccessControl\Entity\AuthAccessEntity();
+		$this->assertEquals($oAuthAccessEntity,$this->userEntity->setUserAuthAccess($oAuthAccessEntity)->getUserAuthAccess());
+	}
+
+	public function testGetUserEmail(){
+		$oAuthAccessEntity = new \BoilerAppAccessControl\Entity\AuthAccessEntity();
+		$this->assertEquals('test@test.com',$this->userEntity->setUserAuthAccess($oAuthAccessEntity->setAuthAccessEmailIdentity('test@test.com'))->getUserEmail());
+	}
 }
