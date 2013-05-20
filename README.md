@@ -1,7 +1,8 @@
 ZF2 BoilerApp User module
 =====================
 
-_100% Code Coverage_
+[![Build Status](https://travis-ci.org/zf2-boiler-app/app-user.png?branch=master)](https://travis-ci.org/zf2-boiler-app/app-user)
+![Code coverage](https://raw.github.com/zf2-boiler-app/app-test/master/ressources/100%25-code-coverage.png "100% code coverage")
 
 NOTE : This module is in heavy development, it's not usable yet.
 If you want to contribute don't hesitate, I'll review any PR.
