@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1369044212">
-  <project timestamp="1369044212">
+<coverage generated="1369052413">
+  <project timestamp="1369052413">
     <package name="BoilerAppUser\Controller">
       <file name="C:\Users\emilien\workspace-zf2\app-user\src\BoilerAppUser/Controller/UserAccountController.php">
         <class name="UserAccountController" namespace="BoilerAppUser\Controller">

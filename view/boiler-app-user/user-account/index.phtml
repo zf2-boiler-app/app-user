@@ -7,12 +7,18 @@
 	</div>
 	<div class="span10">
 		<dl class="dl-horizontal">
-			<dt><?=$this->translate('user_display_name')?> :</dt>
+			<dt><?=$this->translate('display_name')?> :</dt>
 			<dd><span id="user_display_name"><?=$this->layout()->authenticatedUser->getUserDisplayName()?></span> | <a href="#" onclick="oController.changeUserDisplayName();return false;"><?=$this->translate('change_display_name')?></a></dd>
 		</dl>
-		<a class="btn btn-small btn-danger pull-right" href="<?=$this->url('User/Account/DeleteAccount')?>" onclick="return confirm(oController.translate('confirm_delete_account'));">
+	</div>
+	<div class="pull-right">
+		<a class="btn btn-small" href="<?=$this->url('AccessControl/AuthAccess')?>">
+			<i class="icon-lock"></i>
+			&nbsp;<?=$this->translate('manage_auth_access')?>
+		</a>&nbsp;
+		<a class="btn btn-small btn-danger" href="<?=$this->url('User/Account/DeleteAccount')?>" onclick="return confirm(oController.translate('confirm_delete_account'));">
 			<i class="icon-warning-sign"></i>
-			<?=$this->translate('delete_account')?>
+			&nbsp;<?=$this->translate('delete_account')?>
 		</a>
 	</div>
 </div>

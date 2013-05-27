@@ -11,5 +11,5 @@ return array(
 
 	'delete_account' => 'Supprimer le compte',
 	'display_name' => 'Nom d\'utilisateur',
-	'display_name_has_been_changed' => 'Votre avatar a été modifié',
+	'display_name_has_been_changed' => 'Votre nom d\'utilisateur a été modifié'
 );

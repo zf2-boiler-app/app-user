@@ -38,7 +38,7 @@ class UserAccountController extends \BoilerAppDisplay\Mvc\Controller\AbstractAct
 			&& $this->view->form->setData($this->params()->fromFiles())->isValid()
 			&& ($aData = $this->view->form->getData())
 			&& $this->getServiceLocator()->get('UserAccountService')->changeAuthenticatedUserAvatar($aData['new_user_avatar']['tmp_name'])
-		)$this->view->avatarUpdated = true;
+		)$this->view->avatarChanged = true;
 		return $this->view;
 	}
 
