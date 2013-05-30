@@ -12,5 +12,5 @@ before_script:
  - cd tests
 
 script:
- - phpunit
+ - phpunit -d max_execution_time=0 
  - php ./coverage-checker.php ./clover.xml 100
