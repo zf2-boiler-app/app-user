@@ -3,6 +3,9 @@ return array(
 	'paths' => array(
     	'avatarsPath' => __DIR__.'/_files/avatars'
     ),
+	'translator' => array(
+		'locale' => 'fr_FR'
+	),
 	'asset_bundle' => array(
 		'cachePath' => __DIR__.'/_files/cache',
 		'cacheUrl' => '@zfBaseUrl/cache/',
