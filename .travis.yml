@@ -4,11 +4,18 @@ php:
  - "5.4"
 
 before_install:
+# Set the GitHub OAuth token to make use of the 6000 per hour rate limit
+ - mkdir -p ~/.composer
+ - cp .travis.composer.json ~/.composer/config.json
+# Update composer
  - composer self-update
+# Install project
  - composer install --dev -o
 
 before_script:
+# Create database
  - mysql -e 'create database `app-user-tests`;'
+# Enter the tests folder
  - cd tests
 
 script:
