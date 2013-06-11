@@ -22,7 +22,8 @@ class UserEntity extends \BoilerAppDb\Entity\AbstractEntity implements \BoilerAp
 
 	/**
 	 * @var \BoilerAppAccessControl\Entity\AuthAccessEntity
-     * @\Doctrine\ORM\Mapping\OneToOne(targetEntity="BoilerAppAccessControl\Entity\AuthAccessEntity", mappedBy="auth_access_user")
+	 * @\Doctrine\ORM\Mapping\OneToOne(targetEntity="BoilerAppAccessControl\Entity\AuthAccessEntity", inversedBy="auth_access_user")
+	 * @\Doctrine\ORM\Mapping\JoinColumn(name="user_auth_access_id", referencedColumnName="auth_access_id")
 	 */
 	protected $user_auth_access;
 
