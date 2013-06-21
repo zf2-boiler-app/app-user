@@ -49,7 +49,7 @@
         "zf2-boiler-app/app-access-control": "1.0.*@dev"
     },
     "require-dev":{
-    	"zf2-boiler-app/app-test": "1.0.*@dev",
+    	"zf2-boiler-app/app-test": "1.0.*@dev"
     },
     "autoload": {
         "psr-0": {
