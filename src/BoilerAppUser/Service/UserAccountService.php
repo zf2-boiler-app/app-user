@@ -4,16 +4,6 @@ class UserAccountService implements \Zend\ServiceManager\ServiceLocatorAwareInte
 	use \Zend\ServiceManager\ServiceLocatorAwareTrait;
 
 	/**
-	 * Delete current authenticated user
-	 * @return \BoilerAppUser\Service\UserAccountService
-	 */
-	public function removeAuthenticatedUser(){
-		//Delete auth access & user
-		$this->getServiceLocator()->get('AccessControlService')->removeAuthenticatedAuthAccess();
-		return $this;
-	}
-
-	/**
 	 * Create new avatar image for current authenticated user
 	 * @param string $sUserAvatarFilePath
 	 * @throws \InvalidArgumentException

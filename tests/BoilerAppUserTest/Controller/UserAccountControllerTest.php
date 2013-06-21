@@ -21,25 +21,6 @@ class UserAccountControllerTest extends \BoilerAppTest\PHPUnit\TestCase\Abstract
 		$this->assertMatchedRouteName('User/Account');
 	}
 
-	public function testDeleteAccountAction(){
-		//Add authentication fixture
-		$this->addFixtures(array('BoilerAppUserTest\Fixture\UserLoggedFixture'));
-
-		//Authenticate user
-		$this->getApplicationServiceLocator()->get('AuthenticationService')->authenticate(
-			\BoilerAppAccessControl\Service\AuthenticationService::LOCAL_AUTHENTICATION,
-			'valid@test.com',
-			'valid-credential'
-		);
-
-		$this->dispatch('/user/account/delete-account');
-		$this->assertResponseStatusCode(200);
-		$this->assertModuleName('BoilerAppUser');
-		$this->assertControllerName('BoilerAppUser\Controller\UserAccount');
-		$this->assertControllerClass('UserAccountController');
-		$this->assertMatchedRouteName('User/Account/DeleteAccount');
-	}
-
 	public function testChangeAvatarAction(){
 		//Add authentication fixture
 		$this->addFixtures(array('BoilerAppUserTest\Fixture\UserLoggedFixture'));

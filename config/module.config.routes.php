@@ -19,16 +19,6 @@ return array(
 					),
 					'may_terminate' => true,
 					'child_routes' => array(
-						'DeleteAccount' => array(
-							'type' => 'Zend\Mvc\Router\Http\Literal',
-							'options' => array(
-								'route' => '/delete-account',
-								'defaults' => array(
-									'controller' => 'BoilerAppUser\Controller\UserAccount',
-									'action' => 'deleteAccount'
-								)
-							)
-						),
 						'ChangeAvatar' => array(
 							'type' => 'Zend\Mvc\Router\Http\Literal',
 							'options' => array(

@@ -13,16 +13,6 @@ class UserAccountController extends \BoilerAppDisplay\Mvc\Controller\AbstractAct
 	}
 
 	/**
-	 * Delete user logged
-	 * @return \Zend\View\Model\ViewModel
-	 */
-	public function deleteAccountAction(){
-		$this->layout()->title = $this->getServiceLocator()->get('Translator')->translate('delete_account');
-		$this->getServiceLocator()->get('UserAccountService')->removeAuthenticatedUser();
-		return $this->view;
-	}
-
-	/**
 	 * Show change user avatar form or process user avatar change attempt
 	 * @throws \LogicException
 	 * @return \Zend\View\Model\ViewModel
