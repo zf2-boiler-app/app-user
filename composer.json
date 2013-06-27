@@ -45,11 +45,11 @@
     ], 
     "require": {
         "php": ">=5.3.3",
-        "zendframework/zendframework": "2.3.*",
-        "zf2-boiler-app/app-access-control": "1.0.*@dev"
+        "zendframework/zendframework": "dev-master",
+        "zf2-boiler-app/app-access-control": "dev-master"
     },
     "require-dev":{
-    	"zf2-boiler-app/app-test": "1.0.*@dev"
+    	"zf2-boiler-app/app-test": "dev-master"
     },
     "autoload": {
         "psr-0": {
