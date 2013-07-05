@@ -13,6 +13,8 @@
     <filter>
         <whitelist>
             <directory suffix=".php">../src/</directory>
+            <directory suffix=".phtml">../view/</directory>
+            <file>../Module.php</file>
         </whitelist>
     </filter>
     <logging>
