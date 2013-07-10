@@ -9,12 +9,13 @@
 		<dl class="dl-horizontal">
 			<dt><?=$this->translate('display_name')?> :</dt>
 			<dd><span id="user_display_name"><?=$this->layout()->authenticatedUser->getUserDisplayName()?></span> | <a href="#" onclick="oController.changeUserDisplayName();return false;"><?=$this->translate('change_display_name')?></a></dd>
+			<dd>&nbsp;</dd>
+			<dd>
+				<a class="btn btn-small" href="<?=$this->url('AccessControl/AuthAccess')?>">
+					<i class="icon-lock"></i>
+					&nbsp;<?=$this->translate('manage_auth_access')?>
+				</a>
+			</dd>
 		</dl>
-	</div>
-	<div class="pull-right">
-		<a class="btn btn-small" href="<?=$this->url('AccessControl/AuthAccess')?>">
-			<i class="icon-lock"></i>
-			&nbsp;<?=$this->translate('manage_auth_access')?>
-		</a>
 	</div>
 </div>
