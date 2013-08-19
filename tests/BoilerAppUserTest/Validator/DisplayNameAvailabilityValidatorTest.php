@@ -41,13 +41,6 @@ class DisplayNameAvailabilityValidatorTest extends \BoilerAppTest\PHPUnit\TestCa
 		//Add authentication fixture
 		$this->addFixtures(array('BoilerAppUserTest\Fixture\UserLoggedFixture'));
 
-		//Authenticate user
-		$this->getServiceManager()->get('AuthenticationService')->authenticate(
-			\BoilerAppAccessControl\Service\AuthenticationService::LOCAL_AUTHENTICATION,
-			'valid@test.com',
-			'valid-credential'
-		);
-
 		$this->assertFalse($this->displayNameAvailabilityValidator->setCurrentDisplayName('Test')->isValid('Valid'));
 		$this->assertEquals(array('displayNameUnavailable' => 'Le nom d\'utilisateur "Valid" est indisponible'), $this->displayNameAvailabilityValidator->getMessages());
 	}

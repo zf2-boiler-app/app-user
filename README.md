@@ -1,7 +1,9 @@
-ZF2 BoilerApp User module
+ZF2 BoilerApp "User" module
 =====================
 
 [![Build Status](https://travis-ci.org/zf2-boiler-app/app-user.png?branch=master)](https://travis-ci.org/zf2-boiler-app/app-user)
+[![Latest Stable Version](https://poser.pugx.org/zf2-boiler-app/app-user/v/stable.png)](https://packagist.org/packages/zf2-boiler-app/app-user)
+[![Total Downloads](https://poser.pugx.org/zf2-boiler-app/app-user/downloads.png)](https://packagist.org/packages/zf2-boiler-app/app-user)
 ![Code coverage](https://raw.github.com/zf2-boiler-app/app-test/master/ressources/100%25-code-coverage.png "100% code coverage")
 
 NOTE : This module is in heavy development, it's not usable yet.

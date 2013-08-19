@@ -17,19 +17,12 @@ class UserAccountServiceTest extends \BoilerAppTest\PHPUnit\TestCase\AbstractDoc
 	}
 
 	public function testChangeAuthenticatedUserAvatar(){
-		//Remove avatar if exists
-		$sAvatarPath = getcwd().DIRECTORY_SEPARATOR.'tests/_files/avatars/1-avatar.png';
-		if(file_exists($sAvatarPath))unlink($sAvatarPath);
-
 		//Add authentication fixture
 		$this->addFixtures(array('BoilerAppUserTest\Fixture\UserLoggedFixture'));
 
-		//Authenticate user
-		$this->getServiceManager()->get('AuthenticationService')->authenticate(
-			\BoilerAppAccessControl\Service\AuthenticationService::LOCAL_AUTHENTICATION,
-			'valid@test.com',
-			'valid-credential'
-		);
+		//Remove avatar if exists
+		$sAvatarPath = getcwd().DIRECTORY_SEPARATOR.'tests/_files/avatars/1-avatar.png';
+		if(file_exists($sAvatarPath))unlink($sAvatarPath);
 
 		$this->userAccountService->changeAuthenticatedUserAvatar(getcwd().DIRECTORY_SEPARATOR.'tests/_files/avatars/1.png');
 		$this->assertFileExists($sAvatarPath);
